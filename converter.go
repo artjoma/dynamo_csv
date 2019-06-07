@@ -22,7 +22,7 @@ func main (){
 	if len(os.Args) != 3 {
 		panic("first arg source file name, second to file name")
 	}
-	parse(os.Args[0], os.Args[1])
+	parse(os.Args[1], os.Args[2])
 }
 
 func parse(sourceFileName, toFileName string){
