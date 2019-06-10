@@ -61,7 +61,11 @@ func parse(sourceFileName, toFileName string){
 		csvRow = make([]string, 0, 20)
 		for _, header := range headerRow {
 			for _, value := range value[header] {
-				csvRow = append(csvRow, fmt.Sprint(value))
+				if value == nil{
+					csvRow = append(csvRow, "")
+				}else{
+					csvRow = append(csvRow, fmt.Sprint(value))
+				}
 			}
 		}
 		csvData[i] = csvRow
@@ -71,6 +75,7 @@ func parse(sourceFileName, toFileName string){
 	//save csv file
 	osToFile, err := os.Create(pwd + "/" + toFileName)
 	writer := csv.NewWriter(osToFile)
+	writer.Comma = ';'
 	writer.WriteAll(csvData)
 	writer.Flush()
 	osToFile.Close()
