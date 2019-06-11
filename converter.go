@@ -57,14 +57,18 @@ func parse(sourceFileName, toFileName string){
 	//make body
 	i := 1
 	var csvRow []string = nil
-	for _, value := range model.Items {
+	for _, fVal := range model.Items {
 		csvRow = make([]string, 0, 20)
 		for _, header := range headerRow {
-			for _, value := range value[header] {
-				if value == nil{
-					csvRow = append(csvRow, "")
-				}else{
-					csvRow = append(csvRow, fmt.Sprint(value))
+			if fVal[header] == nil {
+				csvRow = append(csvRow, "")
+			}else{
+				for _, value := range fVal[header] {
+					if value == ""{
+						csvRow = append(csvRow, "")
+					}else{
+						csvRow = append(csvRow, fmt.Sprint(value))
+					}
 				}
 			}
 		}
